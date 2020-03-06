@@ -8,8 +8,15 @@ class LocationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ClientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Client
+        fields = 'name',
+
+
 class PersonSerializer(serializers.ModelSerializer):
     location = LocationSerializer()
+    client = ClientSerializer()
 
     class Meta:
         model = Person
@@ -31,9 +38,3 @@ class SessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Session
         fields = 'id', 'creation_date', 'valid', 'couples'
-
-
-class ClientSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Client
-        fields = 'name'

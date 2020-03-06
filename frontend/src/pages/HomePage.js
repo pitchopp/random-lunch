@@ -131,7 +131,9 @@ class HomePage extends React.Component {
                 <CardBody>
                   <CardTitle>{person.first_name} {person.last_name}</CardTitle>
                   <CardText>
-                    {person.location.name}<br/>{person.location.address}
+                    {person.mission}<br/>
+                    {person.client && "Chez " + person.client.name} ({person.location.name})<br/>
+                    {person.phone_number && "Tél: " + person.phone_number}
                   </CardText>
                 </CardBody>
               </Card>
