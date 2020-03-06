@@ -30,4 +30,10 @@ class SessionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Session
-        fields = 'creation_date', 'valid', 'couples'
+        fields = 'id', 'creation_date', 'valid', 'couples'
+
+
+class ClientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Client
+        fields = 'name'

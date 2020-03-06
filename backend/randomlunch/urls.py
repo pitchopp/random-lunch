@@ -7,5 +7,6 @@ urlpatterns = [
     path('api/persons', views.persons),
     path('api/sessions', views.sessions),
     path('api/sessions/random', views.random_session),
-    path('api/sessions/<int:session_id>/validate', views.validate_session)
+    path('api/sessions/<int:session_id>/validate', views.validate_session),
+    path('api/sessions', views.sessions)
 ]

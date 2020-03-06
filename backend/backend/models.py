@@ -2,7 +2,6 @@ import os
 from math import radians, sin, cos, sqrt, atan2
 from django.db.models import Model, SET_NULL, CharField, FloatField, IntegerField, ForeignKey, TextField, BooleanField, \
     ImageField, DateField, CASCADE
-from django.db import models
 
 
 class Location(Model):
@@ -46,9 +45,9 @@ class Person(Model):
     last_name = CharField(max_length=50)
     location = ForeignKey(Location, on_delete=SET_NULL, null=True)
     mobility = IntegerField()
-    client = ForeignKey(Client, on_delete=SET_NULL, null=True)
-    mission = CharField(max_length=50)
-    phone_number = CharField(max_length=15)
+    client = ForeignKey(Client, on_delete=SET_NULL, null=True, blank=True)
+    mission = CharField(max_length=50, null=True, blank=True)
+    phone_number = CharField(max_length=15, null=True, blank=True)
     can_move = BooleanField(default=False)
 
     def __str__(self):
