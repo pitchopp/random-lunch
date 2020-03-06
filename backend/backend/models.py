@@ -63,8 +63,12 @@ class Person(Model):
     def test_persons_can_meet(cls, person1, person2):
         return person1.can_meet(person2)
 
-    def get_meetable_persons(self):
-        return [p for p in self.objects.all() if self.can_meet(p)]
+    def get_meetable_persons(self, list_persons=None):
+        if list_persons:
+            pool = list_persons
+        else:
+            pool = self.objects.all()
+        return [p for p in pool if p != self and self.can_meet(p)]
 
 
 class Session(Model):

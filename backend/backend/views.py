@@ -1,12 +1,10 @@
-import random
 import time
-
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
 from backend.error_responses import ErrorResponses
 from backend.models import Person, Session, Couple
 from backend.serializers import PersonSerializer, SessionSerializer
+from randomlunch.randomsession import get_random_couples
 
 
 def persons(request):
@@ -29,37 +27,26 @@ def sessions(request):
         return ErrorResponses.error_500(str(e))
 
 
-def get_random_couples(list_persons):
-    def pop_random(lst):
-        idx = random.randrange(0, len(lst))
-        return lst.pop(idx)
-
-    while len(list_persons) > 1:
-        person_1 = pop_random(list_persons)
-        person_2 = pop_random(list_persons)
-        yield person_1, person_2
-
-
 @csrf_exempt
 def random_session(request):
-    try:
-        if request.method == 'POST':
-            session = Session()
-            session.save()
-            list_persons = list(Person.objects.all())
-            couples = get_random_couples(list_persons)
-            for couple in couples:
-                Couple(
-                    session=session,
-                    person_1=couple[0],
-                    person_2=couple[1]
-                ).save()
-            time.sleep(4)
-            return JsonResponse(SessionSerializer(session).data, safe=False)
-        else:
-            return ErrorResponses.method_not_allowed(request)
-    except Exception as e:
-        return ErrorResponses.error_500(str(e))
+    #try:
+    if request.method == 'POST':
+        session = Session()
+        session.save()
+        list_persons = list(Person.objects.all())
+        couples = get_random_couples(list_persons)
+        for couple in couples:
+            Couple(
+                session=session,
+                person_1=couple[0],
+                person_2=couple[1]
+            ).save()
+        time.sleep(4)
+        return JsonResponse(SessionSerializer(session).data, safe=False)
+    else:
+        return ErrorResponses.method_not_allowed(request)
+    #except Exception as e:
+    #    return ErrorResponses.error_500(str(e))
 
 
 @csrf_exempt
