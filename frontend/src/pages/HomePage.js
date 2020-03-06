@@ -81,12 +81,28 @@ class HomePage extends React.Component {
                   src={require('../assets/img/roulettes/roulette.gif')}/>
                 }
                 {this.state.sessionLoaded && this.state.session &&
-                this.state.session.couples.map((couple, index) => (
-                  <div key={index}>
-                    <h3>{couple.person_1.first_name}</h3>
-                    <h3>{couple.person_2.first_name}</h3>
-                  </div>
-                ))
+                <Row className="justify-content-center">
+                  {this.state.session.couples.map((couple, index) => (
+                      <Card key={index} style={{padding: 10, marginBottom: 10}}>
+                        <Row>
+                          <Col lg="6" md="6" sm="6" xs="6" style={{margin:0}}>
+                            <img
+                              alt="person"
+                              src={require('../assets/media/' + couple.person_1.profile_picture)}
+                              style={{ width: "auto", height: 100 }}
+                            />
+                          </Col>
+                          <Col lg="6" md="6" sm="6" xs="6" style={{margin:0}}>
+                            <img
+                              alt="person"
+                              src={require('../assets/media/' + couple.person_2.profile_picture)}
+                              style={{ width: "auto", height: 100 }}
+                            />
+                          </Col></Row>
+                      </Card>
+                  ))
+                  }
+                </Row>
                 }
               </ModalBody>
               {this.state.sessionLoaded && this.state.session &&
